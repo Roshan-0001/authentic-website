@@ -117,7 +117,6 @@ function OtpResponse() {
 
     const sendOtp = async () => {
         try {
-            console.log(mail);
             const response = await fetch('/api/register/send-otp', {
                 method: 'POST',
                 headers: {
@@ -126,11 +125,11 @@ function OtpResponse() {
                 body: JSON.stringify(mail),
             });
 
-            const result = await response.json();
-
-            console.log(result);
-            
-
+            if(response.ok){
+                const result = await response.json();
+            console.log(result.data);
+            alert(result.data);
+            }
 
         } catch (error) {
             console.log(error);

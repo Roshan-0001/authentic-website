@@ -79,9 +79,6 @@ const otpSender = asyncHandler(
         const otp = OTPGenerator.generate(6, {upperCaseAlphabets: false, lowerCaseAlphabets: false, specialChars: false});
         
 
-        otpStorage[email] = otp;
-
-        console.log('otp sended',otpStorage);
         
 
         const mailOptions = {
@@ -91,7 +88,7 @@ const otpSender = asyncHandler(
             text: `Your OTP is ${otp}`
         };
 
-        await transporter.sendMail(mailOptions,(error, info)=>{
+        transporter.sendMail(mailOptions,(error, info)=>{
             if(error) {
                 console.log(error);
                 // throw new ApiError(400, "Error sending otp", error);
@@ -100,7 +97,11 @@ const otpSender = asyncHandler(
                 );
                 
             } else {
-            res.status(200).send('OTP sent successfully');
+            res.status(200).json(
+                new ApiResponse(201, 'otp sended successfully')
+            );
+            otpStorage[email] = otp;
+            console.log('otp sended',otpStorage);
             }
         });
 
