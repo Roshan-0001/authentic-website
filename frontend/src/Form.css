@@ -1,0 +1,23 @@
+form{
+    background-color: rgb(61, 61, 61);
+    padding: 5rem 2rem;
+    border-radius: 50px;
+}
+input{
+    padding: 1rem 2rem;
+    border-radius: 50px;
+    border-color: transparent;
+    font-size: 1.2rem;
+    margin: 1rem;
+    text-decoration: none;
+    
+    
+}
+.btn{
+    margin: 1rem;
+    border-radius: 50px;
+    border-color: transparent;
+    font-size: 1.2rem;
+    border-radius: 50px;
+    padding: 1rem 2.5rem;
+}
