@@ -91,11 +91,13 @@ const otpSender = asyncHandler(
             text: `Your OTP is ${otp}`
         };
 
-        transporter.sendMail(mailOptions,(error, info)=>{
+        await transporter.sendMail(mailOptions,(error, info)=>{
             if(error) {
                 console.log(error);
                 // throw new ApiError(400, "Error sending otp", error);
-                return res.status(500).json(error.message);
+                return res.status(500).json(
+                    new ApiError(500, error, "failed to send otp")
+                );
                 
             } else {
             res.status(200).send('OTP sent successfully');
