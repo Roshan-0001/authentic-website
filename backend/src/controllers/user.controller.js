@@ -19,9 +19,8 @@ const registerUser = asyncHandler(
             [username , email , password].some((feild)=>feild?.trim() === "")
         ){
             return res.status(400).json(
-                new ApiError(400, "All feilds are required" )
+                new ApiError(400, this , "All feilds are required" )
             );
-            // throw responseError;
         }
     
         // checking user is already existed or not..
@@ -31,7 +30,7 @@ const registerUser = asyncHandler(
     
         if(existedUser){
             return res.status(409).json(
-                new ApiError(409,"user already existed" )
+                new ApiError(409,this,"user already existed" )
             );
         }
 
@@ -48,7 +47,7 @@ const registerUser = asyncHandler(
     
         if(!userCreated){ 
             return res.status(406).json(
-                new ApiError(406, "something went wrong while creating user")
+                new ApiError(406, this ,"something went wrong while creating user")
             );
         }else{
         console.log("user registered successfully from beckend -----" , userCreated);
