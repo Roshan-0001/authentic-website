@@ -1,9 +1,13 @@
 import "./Form.css";
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 function Form(){
     const [formData, setFormData] = useState({username: '', email: '', password: ''})
+    const [data, setData] = useState(null);
+    const [msg, setMsg] = useState("Loding");
+
+    
 
     const handleChange = (e) =>{
         setFormData({...formData, [e.target.id]: e.target.value});
@@ -26,17 +30,45 @@ function Form(){
 
             if(response.ok){
                 setFormData({ username: '',email: '', password: '' });
-                console.log('Registration Successful:', result);
+                console.log('Registration Successful:');
+                setData(result);
+                setMsg(result.message);
             } else {
                 console.log('Registration failed:', result);   
+                setMsg("registration failed");
             }
 
         } catch (error) {
             console.log('Error: ', error);
         }
+    // useEffect(() => {
+    //     // Define the URL of your backend API
+    //     const apiUrl = '/api/register';
+
+    //     // Fetch data from the backend
+    //     fetch(apiUrl)
+    //         .then((response) => {
+    //             if (!response.ok) {
+    //                 throw new Error('Network response was not ok');
+    //             }
+    //             return response.json();
+    //         })
+    //         .then((data) => {
+    //             setData(data);
+    //             setLoading(false);
+    //         })
+    //         .catch((error) => {
+    //             setError(error);
+    //             setLoading(false);
+    //         });
+    // }, []);
+    // console.log(data);
     };
 
     return(
+        <>
+        <h1 className="signup">SignUp</h1>
+        <p className="msg">{msg}</p>
         <form onSubmit={handleSubmit}>
             <input 
                 type="text" 
@@ -69,6 +101,9 @@ function Form(){
                     Submit
                 </button>
         </form>
+
+        
+    </>
     )
 }
 
