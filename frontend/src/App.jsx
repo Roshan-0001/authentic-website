@@ -6,18 +6,19 @@ import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 
 function App() {
 
-  const [data, setData] = useState(null);
+  // const [data, setData] = useState(null);
 
-  useEffect(()=>{
-    axios.get('/api')
-      .then(response => setData(response.data))
-      .catch(error => console.log('Error fetching data: ', error));
-  }, []);
+  // useEffect(()=>{
+  //   axios.get('/api')
+  //     .then(response => setData(response.data))
+  //     .catch(error => console.log('Error fetching data: ', error));
+  // // }, []);
+  // const handleClick = useCallback(() => OtpResponse(), []);
 
   return (
     <Router>
       
-      {data ? <pre>{JSON.stringify(data, null, 2)}</pre> : 'Loading...'}
+      {/* {data ? <pre>{JSON.stringify(data, null, 2)}</pre> : 'Loading...'} */}
 
       <Routes>
         <Route path="/register" element={<Form/>} />

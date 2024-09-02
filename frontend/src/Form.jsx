@@ -114,58 +114,45 @@ function OtpResponse() {
     const m2 = location.state.result.data;
     const {email} = m2;
     const mail = {email};
+    const navigate = useNavigate();
+    useEffect(() => {
+        const sendOtp = async () => {
+            try {
+                const response = await fetch('/api/register/send-otp', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(mail),
+                });
 
-    const sendOtp = async () => {
-        try {
-            const response = await fetch('/api/register/send-otp', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(mail),
-            });
-
-            if(response.ok){
-                const result = await response.json();
-            console.log(result.data);
-            alert(result.data);
+                if(response.ok){
+                    const result = await response.json();
+                    console.log(result.data);
+                    alert(result.data);
+                    navigate('/register/verify-otp', {
+                        state:{ mail },
+                    });
+                } else {
+                    console.error('Failed to send OTP:', result.errors);
+                }
+            } catch (error) {
+                console.error('Error sending OTP:', error);
             }
+        };
 
-        } catch (error) {
-            console.log(error);
-
-        }
-    }
-
-    sendOtp();
-
-
-    // try {
-
-    //     const response = await fetch('/api/register/send-otp' , {
-    //         method: 'POST',
-    //         headers:{
-    //             'Content-Type': 'application/json',
-    //         },
-    //         body: JSON.stringify(message.email),
-    //     });
-
-    //     const result = await response.json();
-
-
-
-    // } catch (error) {
-    //     console.log("Error: ", error);
-    // }
-
-
+        sendOtp();
+    }, []);
 }
+
 
 
 function FormOTP() {
 
     const [otp, setOtp] = useState({ otp: '' })
-
+    const location = useLocation();
+    const {email} =  location.state.mail;
+    const mail = {email};
 
     const handleChange = (e) => {
         setOtp({ ...otp, [e.target.id]: e.target.value });
@@ -173,16 +160,29 @@ function FormOTP() {
 
     const submitOtp = async (e) => {
         e.preventDefault();
+        const data ={ ...otp , ...mail};
+        
+
 
         try {
 
-            const response = await fetch("/api/register/otp", {
+            const response = await fetch("/api/register/verify-otp", {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify(otp),
+                body: JSON.stringify(data),
             });
+            const result = await response.json();
+
+            if(result.success){
+                setOtp({otp: ""});
+                alert(result.message);
+            } else {
+                setOtp({otp: ""});
+                alert('User not verified, Try after sometimes');
+            }
+            
 
         } catch (error) {
             console.log("Error : ", error);
@@ -190,7 +190,7 @@ function FormOTP() {
     }
 
     return (
-        <form onChange={submitOtp}>
+        <form onSubmit={submitOtp}>
             <input
                 type="text"
                 id="otp"

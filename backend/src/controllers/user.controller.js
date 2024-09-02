@@ -111,14 +111,20 @@ const otpSender = asyncHandler(
 
 const otpVerifier = asyncHandler(
     async (req, res) =>{
-        const{ email, otp} = req.body;
+        const data = req.body;
+        const data2 = JSON.stringify(data);
+        console.log(data2);
+        const{ email, otp} = data;
         let user = await User.find({email});
+        console.log(user);
+        
 
-        if(user[0].isVerified){
-            res.status(200).json(
-                new ApiResponse(300, user, "user allready verified")
-            );
-        } else if (otpStorage[email] === otp){
+        // if(user[0].isVerified){
+        //     res.status(200).json(
+        //         new ApiResponse(300, user, "user allready verified")
+        //     );
+        // } else
+         if (otpStorage[email] === otp){
             delete otpStorage[email];
 
             user = await User.updateOne({_id: user[0]._id}, { $set: { isVerified: true } });
