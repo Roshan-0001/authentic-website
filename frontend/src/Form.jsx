@@ -143,6 +143,10 @@ function OtpResponse() {
 
         sendOtp();
     }, []);
+
+    return(
+        <h1>Loading....</h1>
+    )
 }
 
 
@@ -153,6 +157,7 @@ function FormOTP() {
     const location = useLocation();
     const {email} =  location.state.mail;
     const mail = {email};
+    const navigate = useNavigate();
 
     const handleChange = (e) => {
         setOtp({ ...otp, [e.target.id]: e.target.value });
@@ -161,8 +166,6 @@ function FormOTP() {
     const submitOtp = async (e) => {
         e.preventDefault();
         const data ={ ...otp , ...mail};
-        
-
 
         try {
 
@@ -178,6 +181,8 @@ function FormOTP() {
             if(result.success){
                 setOtp({otp: ""});
                 alert(result.message);
+                navigate('/');
+
             } else {
                 setOtp({otp: ""});
                 alert('User not verified, Try after sometimes');

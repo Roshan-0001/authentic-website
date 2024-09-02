@@ -113,17 +113,9 @@ const otpVerifier = asyncHandler(
     async (req, res) =>{
         const data = req.body;
         const data2 = JSON.stringify(data);
-        console.log(data2);
         const{ email, otp} = data;
         let user = await User.find({email});
-        console.log(user);
         
-
-        // if(user[0].isVerified){
-        //     res.status(200).json(
-        //         new ApiResponse(300, user, "user allready verified")
-        //     );
-        // } else
          if (otpStorage[email] === otp){
             delete otpStorage[email];
 
@@ -132,7 +124,9 @@ const otpVerifier = asyncHandler(
                 new ApiResponse(200, user, "user verified successfully")
             );
         } else {
-            res.status(400).send('Invalid otp');
+            res.status(400).json(
+                new ApiResponse(407, this,"invalid otp")
+            );
         }
     }
 )
