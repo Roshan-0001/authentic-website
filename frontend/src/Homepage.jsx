@@ -6,7 +6,7 @@ function Homepage (){
         <>
         <h1>--- Roshan Sharma ---</h1>
         <a href="/register"><button className="btn signup" >SignUp</button></a>
-        <a href="#"><button className="btn login">Login</button></a>
+        <a href="/login"><button className="btn login">Login</button></a>
         </>
     )
 }
