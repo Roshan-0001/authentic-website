@@ -6,7 +6,7 @@ import { ApiError } from "../utils/apiError.js";
 import { ApiResponse } from "../utils/apiResponse.js";
 import { otpStorage  } from "../constant.js";
 import OTPGenerator from 'otp-generator';
-
+import bcrypt from 'bcrypt';
 
 // registration of the user 
 const registerUser = asyncHandler(
@@ -131,5 +131,46 @@ const otpVerifier = asyncHandler(
     }
 )
 
+const passwordLogin = asyncHandler(
+    async (req, res) =>{
+        // take details from the body
+        console.log(req.body);
+        const {username, password} = req.body;
+        
+        //checking for the required details is present or not
+        if(!username){
+            res.status(409).json(
+                new ApiError(409, this, "All fields are Required")
+            )
+        }
 
-export  {registerUser, otpSender, otpVerifier};
+        //checking the username is present in the database or not
+        const existedUser = await User.findOne({username});
+    
+        if(!existedUser){
+            return res.status(409).json(
+                new ApiError(409,this,"Invalid credentials" )
+            );
+        }
+
+        //checking the given password with the existing password
+        const existingPassword = existedUser.password;
+        // const givenPassword = password.
+
+        const isPasswordValid =  await bcrypt.compare(password, existedUser.password);
+        if(!isPasswordValid){
+            return res.status(401).json(
+                new ApiError(401,this,"Invalid credentials" )
+            );
+        }
+
+        const loggedInUser = await User.findById(existedUser._id).select("-password ");
+        res.status(200).json(
+            new ApiResponse(200, loggedInUser, "user loged in successfully")
+        );
+        
+    }
+)
+
+
+export  {registerUser, otpSender, otpVerifier, passwordLogin};
