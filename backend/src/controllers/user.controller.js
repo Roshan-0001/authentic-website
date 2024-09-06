@@ -134,7 +134,6 @@ const otpVerifier = asyncHandler(
 const passwordLogin = asyncHandler(
     async (req, res) =>{
         // take details from the body
-        console.log(req.body);
         const {username, password} = req.body;
         
         //checking for the required details is present or not
@@ -159,8 +158,8 @@ const passwordLogin = asyncHandler(
 
         const isPasswordValid =  await bcrypt.compare(password, existedUser.password);
         if(!isPasswordValid){
-            return res.status(401).json(
-                new ApiError(401,this,"Invalid credentials" )
+            return res.status(400).json(
+                new ApiError(400,this,"Invalid credentials" )
             );
         }
 
