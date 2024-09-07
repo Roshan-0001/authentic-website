@@ -4,7 +4,9 @@
   "description": "personal project for authentication",
   "main": "index.js",
   "type": "module",
-  "scripts": {},
+  "scripts": {
+    "build": "[my-framework] build --output public"
+  },
   "author": "roshan sharma",
   "license": "ISC",
   "dependencies": {
