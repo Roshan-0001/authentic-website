@@ -5,7 +5,9 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "build": "[my-framework] build --output public"
+    "build": "[my-framework] build --output public",
+    "dev":"node src/index.js",
+    "start": "nodemon src/index.js"
   },
   "author": "roshan sharma",
   "license": "ISC",
