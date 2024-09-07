@@ -3,7 +3,7 @@ import nodemailer from 'nodemailer';
 import mongoose from "mongoose";
 import { asyncHandler } from "../utils/asynhandaler.js";
 import { ApiError } from "../utils/ApiError.js";
-import { ApiResponse } from "../utils/apiResponse.js";
+import { ApiResponse } from "../utils/ApiResponse.js";
 import { otpStorage  } from "../constant.js";
 import OTPGenerator from 'otp-generator';
 import bcrypt from 'bcrypt';
