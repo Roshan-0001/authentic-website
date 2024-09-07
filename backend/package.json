@@ -5,7 +5,7 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "build": "[my-framework] build --output public",
+    "build": "node build --output public",
     "dev":"node src/index.js",
     "start": "nodemon src/index.js"
   },
