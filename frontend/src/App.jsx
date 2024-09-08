@@ -24,11 +24,11 @@ function App() {
 
       <Routes>
         <Route path="*" element={<div>Page not found</div>} />
-        <Route path="/" element={<Homepage/>} />
+{/*         <Route path="/" element={<Homepage/>} /> */}
         <Route path="/register" element={<Form/>} />
         <Route path="/register/send-otp" element={<OtpResponse/>} />
         <Route path="/register/verify-otp" element={<FormOTP/>} />
-        <Route path='/login' element={<LoginPage/>}/>
+        <Route path='/' element={<LoginPage/>}/>
         <Route path='/login/password-login' element={<PasswordLogin/>}/>
         <Route path='/login/otp-login' element={<OtpLogin/>}/>
       </Routes>
