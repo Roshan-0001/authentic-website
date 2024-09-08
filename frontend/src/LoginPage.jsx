@@ -26,13 +26,20 @@ function PasswordLogin() {
 
         try {
 
-            const response = await fetch("/api/login/password-login", {
-                method: "POST",
-                headers: {
-                    'Content-Type': "application/json",
-                },
-                body: JSON.stringify(formdata),
-            });
+            // const response = await fetch("/api/login/password-login", {
+            //     method: "POST",
+            //     headers: {
+            //         'Content-Type': "application/json",
+            //     },
+            //     body: JSON.stringify(formdata),
+            // });
+            const response = await fetch("https://authentic-website.onrender.com/api/login/password-login", {  // Full URL
+            method: "POST",
+            headers: {
+                'Content-Type': "application/json",
+            },
+            body: JSON.stringify(formdata),
+        });
             const result = await response.json();
             if (response.ok) {
                 alert(result.message);
