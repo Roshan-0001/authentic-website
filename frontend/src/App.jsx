@@ -23,12 +23,12 @@ function App() {
       {/* {data ? <pre>{JSON.stringify(data, null, 2)}</pre> : 'Loading...'} */}
 
       <Routes>
-        <Route path="*" element={<div>Page not found</div>} />
-{/*         <Route path="/" element={<Homepage/>} /> */}
+        <Route path="*" element={<div>Page not found on this route </div>} />
+        <Route path="/" element={<Homepage/>} />
         <Route path="/register" element={<Form/>} />
         <Route path="/register/send-otp" element={<OtpResponse/>} />
         <Route path="/register/verify-otp" element={<FormOTP/>} />
-        <Route path='/' element={<LoginPage/>}/>
+        <Route path='/login' element={<LoginPage/>}/>
         <Route path='/login/password-login' element={<PasswordLogin/>}/>
         <Route path='/login/otp-login' element={<OtpLogin/>}/>
       </Routes>
