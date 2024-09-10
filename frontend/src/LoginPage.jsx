@@ -1,13 +1,15 @@
 import { useState, useEffect } from "react";
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 function LoginPage() {
     return (
-        <>
-            <a href="/login/password-login"><button className="btn">Password Login</button></a>
-            <a href="/login/otp-login"><button className="btn">OTP Login</button></a>
-        </>
+            <nav>
+            <Link to="/">Home</Link>
+            <Link to="/login/otp-login">otp</Link>
+            <Link to="/login/password-login">password</Link>
+            </nav>
     )
 }
 
@@ -33,12 +35,12 @@ function PasswordLogin() {
                 },
                 body: JSON.stringify(formdata),
             });
-            
+
             const result = await response.json();
             if (response.ok) {
                 alert(result.message);
                 navigate("/");
-            }else {
+            } else {
                 alert(result.errors);
             }
 

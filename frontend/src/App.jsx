@@ -19,14 +19,6 @@ function App() {
 
   return (
     <Router>
-      
-      {/* {data ? <pre>{JSON.stringify(data, null, 2)}</pre> : 'Loading...'} */}
-      <nav>
-      <Link to="/">Home</Link>
-      <Link to="/login/otp-login">otp</Link>
-      <Link to="/login/password-login">password</Link>
-      </nav>
-
       <Routes>
         <Route path="*" element={<div>Page not found on this route </div>} />
         <Route path="/" element={<Homepage/>} />
