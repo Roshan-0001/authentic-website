@@ -37,6 +37,8 @@ function PasswordLogin() {
             });
             console.log(response);
             const result = await response.json();
+            console.log(result);
+            
             if (response.ok) {
                 alert(result.message);
                 navigate("/");
