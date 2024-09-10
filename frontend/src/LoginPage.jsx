@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
+import axios from "axios";
 
 function LoginPage() {
     return (
@@ -35,28 +36,39 @@ function PasswordLogin() {
                 },
                 body: JSON.stringify(formdata),
             });
-            console.log(response);
+            // const bodtParams = JSON.stringify(formdata);
+            // console.log(bodtParams);
+            
+            // const response = await axios.post("/api/login/password-login", {bodtParams});
+            console.log('server respose------',response);
             
             // if (!response.ok) {
             //     throw new Error('Network response was not ok');
             // }
+            // const sult = await response.json();
+            // console.log('json response sult ----', sult);
 
-            const result = await response.json();
-            console.log(result);
+            const esult = await response.text();
+            console.log('text esult----', esult);
             
-            if (result && typeof result === 'object') {
-                if (result.success || result.status === 'success') {
-                    alert(result.message || result.successMessage);
-                navigate("/");
-            } else {
-                alert(result.errors || result.errorMessage);
-            }
-            } else {
-                throw new Error('Invalid JSON response');
-            }
+            const result = await JSON.parse(esult); 
+            console.log('json result -------' ,result);
+
+            
+            
+            // if (result && typeof result === 'object') {
+            //     if (result.success || result.status === 'success') {
+            //         alert(result.message || result.successMessage);
+            //     navigate("/");
+            // } else {
+            //     alert(result.errors || result.errorMessage);
+            // }
+            // } else {
+            //     throw new Error('Invalid JSON response');
+            // }
 
         } catch (error) {
-            console.error("Error----", error.message);
+            console.error("Error----", error);
             alert(error.message || 'An unknown error occurred');
         }
     }
