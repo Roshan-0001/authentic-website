@@ -44,9 +44,12 @@ function PasswordLogin() {
                 console.log(response);
                 
                 return response.text(); // Get response as text
+                
               })
               .then(text => {
                 try {
+                    console.log(text);
+                    
                     const data = JSON.parse(text); // Try parsing JSON
                     console.log(data);
                   } catch (error) {
