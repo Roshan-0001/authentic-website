@@ -48,10 +48,15 @@ function PasswordLogin() {
               })
               .then(text => {
                 try {
-                    console.log(text);
+                    if(text){
+                        console.log(text);
                     
                     const data = JSON.parse(text); // Try parsing JSON
                     console.log(data);
+                    } else {
+                        console.log("text is empty");
+                        
+                    }
                   } catch (error) {
                     console.error('Failed to parse JSON:', error);
                   }
