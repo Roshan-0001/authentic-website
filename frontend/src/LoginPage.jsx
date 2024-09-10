@@ -29,30 +29,40 @@ function PasswordLogin() {
 
         try {
 
-            const response = await fetch("/api/login/password-login", {
+            fetch("/api/login/password-login", {
                 method: "POST",
                 headers: {
                     'Content-Type': "application/json",
                 },
                 body: JSON.stringify(formdata),
-            });
-            // const bodtParams = JSON.stringify(formdata);
-            // console.log(bodtParams);
-            
-            // const response = await axios.post("/api/login/password-login", {bodtParams});
-            console.log('server respose------',response);
-            
-            // if (!response.ok) {
-            //     throw new Error('Network response was not ok');
-            // }
-            // const sult = await response.json();
-            // console.log('json response sult ----', sult);
+            })
+            .then(response => {
+                // Check if response is ok
+                // if (!response.ok) {
+                //   throw new Error('Network response was not ok');
+                // }
+                console.log(response);
+                
+                return response.text(); // Get response as text
+              })
+              .then(text => {
+                try {
+                    const data = JSON.parse(text); // Try parsing JSON
+                    console.log(data);
+                  } catch (error) {
+                    console.error('Failed to parse JSON:', error);
+                  }
+              })
 
-            const esult = await response.text();
-            console.log('text esult----', esult);
+
+
+            // console.log('server respose------',response);
+
+            // const esult = await response.text();
+            // console.log('text esult----', esult);
             
-            const result = await JSON.parse(esult); 
-            console.log('json result -------' ,result);
+            // const result = await JSON.parse(esult); 
+            // console.log('json result -------' ,result);
 
             
             
