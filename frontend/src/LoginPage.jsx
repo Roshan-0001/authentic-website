@@ -36,18 +36,28 @@ function PasswordLogin() {
                 body: JSON.stringify(formdata),
             });
             console.log(response);
+            
+            // if (!response.ok) {
+            //     throw new Error('Network response was not ok');
+            // }
+
             const result = await response.json();
             console.log(result);
             
-            if (response.ok) {
-                alert(result.message);
+            if (result && typeof result === 'object') {
+                if (result.success || result.status === 'success') {
+                    alert(result.message || result.successMessage);
                 navigate("/");
             } else {
-                alert(result.errors);
+                alert(result.errors || result.errorMessage);
+            }
+            } else {
+                throw new Error('Invalid JSON response');
             }
 
         } catch (error) {
-            console.log("Error----", error);
+            console.error("Error----", error.message);
+            alert(error.message || 'An unknown error occurred');
         }
     }
 
