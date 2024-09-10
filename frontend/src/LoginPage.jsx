@@ -35,7 +35,7 @@ function PasswordLogin() {
                 },
                 body: JSON.stringify(formdata),
             });
-
+            console.log(response);
             const result = await response.json();
             if (response.ok) {
                 alert(result.message);
