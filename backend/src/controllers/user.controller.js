@@ -137,9 +137,9 @@ const passwordLogin = asyncHandler(
         const {username, password} = req.body;
         
         //checking for the required details is present or not
-        if(!username){
-            res.status(409).json(
-                new ApiError(409, this, "All fields are Required")
+        if(!username || !password){
+            return res.status(400).json(
+                new ApiError(400, null, "All fields are Required")
             )
         }
 
@@ -147,24 +147,22 @@ const passwordLogin = asyncHandler(
         const existedUser = await User.findOne({username});
     
         if(!existedUser){
-            return res.status(409).json(
-                new ApiError(409,this,"Invalid credentials" )
+            return res.status(401).json(
+                new ApiError(401,null,"Invalid credentials" )
             );
         }
 
         //checking the given password with the existing password
-        const existingPassword = existedUser.password;
-        // const givenPassword = password.
 
         const isPasswordValid =  await bcrypt.compare(password, existedUser.password);
         if(!isPasswordValid){
-            return res.status(400).json(
-                new ApiError(400,this,"Invalid credentials" )
+            return res.status(401).json(
+                new ApiError(401,null,"Invalid credentials" )
             );
         }
 
         const loggedInUser = await User.findById(existedUser._id).select("-password ");
-        res.status(200).json(
+        return res.status(200).json(
             new ApiResponse(200, loggedInUser, "user loged in successfully")
         );
         
