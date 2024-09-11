@@ -8,17 +8,18 @@ import  { LoginPage, OtpLogin, PasswordLogin } from './LoginPage';
 
 function App() {
 
-  // const [data, setData] = useState(null);
+  const [data, setData] = useState(null);
 
-  // useEffect(()=>{
-  //   axios.get('/api')
-  //     .then(response => setData(response.data))
-  //     .catch(error => console.log('Error fetching data: ', error));
-  // // }, []);
-  // const handleClick = useCallback(() => OtpResponse(), []);
+  useEffect(()=>{
+    axios.get('/api')
+      .then(response => setData(response.data))
+      .catch(error => console.log('Error fetching data: ', error));
+  }, []);
+
 
   return (
     <Router>
+      {data ? <pre>{JSON.stringify(data, null, 2)}</pre> : 'Loading...'}
       <Routes>
         <Route path="*" element={<div>Page not found on this route </div>} />
         <Route path="/" element={<Homepage/>} />
