@@ -11,13 +11,15 @@ config({
   path: './.env'
 });
 
+const backUrl = import.meta.env.BACK_URL;
+
 function App() {
 
   const [data, setData] = useState(null);
 
   useEffect(()=>{
     // axios.get('/api')
-    fetch(`${process.env.BACK_URL}/api`, {
+    fetch(`${backUrl}/api`, {
       method: "GET",
       headers: {
           'Content-Type': "application/json",
