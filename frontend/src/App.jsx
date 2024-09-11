@@ -5,13 +5,24 @@ import { FormOTP , Form, OtpResponse } from './Form';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import Homepage from './Homepage';
 import  { LoginPage, OtpLogin, PasswordLogin } from './LoginPage';
+import { config } from 'dotenv';
+
+config({
+  path: './.env'
+});
 
 function App() {
 
   const [data, setData] = useState(null);
 
   useEffect(()=>{
-    axios.get('/api')
+    // axios.get('/api')
+    fetch(`${process.env.BACK_URL}/api`, {
+      method: "GET",
+      headers: {
+          'Content-Type': "application/json",
+      },
+  })
       .then(response => setData(response.data))
       .catch(error => console.log('Error fetching data: ', error));
   }, []);
