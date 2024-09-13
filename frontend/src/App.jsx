@@ -9,8 +9,30 @@ import { LoginPage, OtpLogin, PasswordLogin } from './LoginPage';
 
 function App() {
 
+
+  const [data, setData] = useState(null);
+
+  result();
+
+   async function result() {
+    try {
+      // const response = await fetch('/api', {
+      //   method: "GET",
+      //   headers: {
+      //     'Content-Type': "application/json",
+      //   },
+      // });
+
+      const response = await axios.get('/api');
+      setData(response.data);
+    } catch (error) {
+      console.log('Error........', error); 
+    }
+  }
+    
   return (
     <Router>
+      {data ? <pre>{JSON.stringify(data, null, 2)}</pre> : 'Loading...'}
       <Routes>
         <Route path="*" element={<div>Page not found on this route </div>} />
         <Route path="/" element={<Homepage />} />

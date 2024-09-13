@@ -28,62 +28,22 @@ function PasswordLogin() {
         e.preventDefault();
 
         try {
-
-            fetch("/api/login/password-login", {
+            const response = await fetch("/api/login/password-login", {
                 method: "POST",
                 headers: {
                     'Content-Type': "application/json",
                 },
                 body: JSON.stringify(formdata),
-            })
-            .then(response => {
-                // Check if response is ok
-                // if (!response.ok) {
-                //   throw new Error('Network response was not ok');
-                // }
-                console.log(response);
-                
-                return response.text(); // Get response as text
-                
-              })
-              .then(text => {
-                try {
-                    if(text){
-                        console.log(text);
-                    
-                    const data = JSON.parse(text); // Try parsing JSON
-                    console.log(data);
-                    } else {
-                        console.log("text is empty");
-                        
-                    }
-                  } catch (error) {
-                    console.error('Failed to parse JSON:', error);
-                  }
-              })
-
-
-
-            // console.log('server respose------',response);
-
-            // const esult = await response.text();
-            // console.log('text esult----', esult);
+            });
             
-            // const result = await JSON.parse(esult); 
-            // console.log('json result -------' ,result);
+            const result = await response.json();
+            if (response.ok) {
+                alert(result.message);
+                navigate("/");
+            } else {
+                alert(result.errors);
+            }
 
-            
-            
-            // if (result && typeof result === 'object') {
-            //     if (result.success || result.status === 'success') {
-            //         alert(result.message || result.successMessage);
-            //     navigate("/");
-            // } else {
-            //     alert(result.errors || result.errorMessage);
-            // }
-            // } else {
-            //     throw new Error('Invalid JSON response');
-            // }
 
         } catch (error) {
             console.error("Error----", error);
