@@ -112,19 +112,19 @@ const otpSender = asyncHandler(
 const otpVerifier = asyncHandler(
     async (req, res) =>{
         const data = req.body;
-        const data2 = JSON.stringify(data);
         const{ email, otp} = data;
-        let user = await User.find({email});
+        let user = await User.find({email}).select("-password");
         
          if (otpStorage[email] === otp){
             delete otpStorage[email];
 
-            user = await User.updateOne({_id: user[0]._id}, { $set: { isVerified: true } });
-            res.status(200).json(
-                new ApiResponse(200, user, "user verified successfully")
+            await User.updateOne({_id: user[0]._id}, { $set: { isVerified: true } });
+            
+            return res.status(201).json(
+                new ApiResponse(201, user, "user verified successfully")
             );
         } else {
-            res.status(400).json(
+            return res.status(400).json(
                 new ApiResponse(407, this,"invalid otp")
             );
         }
@@ -169,5 +169,33 @@ const passwordLogin = asyncHandler(
     }
 )
 
+const otpLogin = asyncHandler(
+    async (req,res) => {
+        const {username , email} = req.body;
 
-export  {registerUser, otpSender, otpVerifier, passwordLogin};
+        if(!username && !email){
+            return res.status(400).json(
+                new ApiError(400, null , "username or email is required for login")
+            );
+        }
+
+        const userExist = await User.findOne({
+            $or: [{username},{email}]
+        }) 
+
+        if(!userExist){
+            return res.status(400).json(
+                new ApiError(400, null, "invalid credentials")
+            );
+        }
+
+        const mail = {email: userExist.email};
+
+        return res.status(201).json(
+            new ApiResponse(201,mail, "User found")
+        );
+
+    }
+)
+
+export  {registerUser, otpSender, otpVerifier, passwordLogin, otpLogin};

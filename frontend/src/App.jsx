@@ -16,15 +16,12 @@ function App() {
 
    async function result() {
     try {
-      // const response = await fetch('/api', {
-      //   method: "GET",
-      //   headers: {
-      //     'Content-Type': "application/json",
-      //   },
-      // });
 
-      const response = await axios.get('/api');
+      if(!data){
+        const response = await axios.get('/api');
       setData(response.data);
+      } 
+      
     } catch (error) {
       console.log('Error........', error); 
     }
