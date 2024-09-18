@@ -4,7 +4,7 @@ import axios from 'axios';
 import { FormOTP, Form, OtpResponse } from './Form';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import Homepage from './Homepage';
-import { LoginPage, OtpLogin, PasswordLogin } from './LoginPage';
+import { LoginPage, OtpLogin, OtpLoginVerify, PasswordLogin } from './LoginPage';
 
 
 function App() {
@@ -39,6 +39,7 @@ function App() {
         <Route path='/login' element={<LoginPage />} />
         <Route path='/login/password-login' element={<PasswordLogin />} />
         <Route path='/login/otp-login' element={<OtpLogin />} />
+        <Route path='/login/otp-login/verify-otp' element={<OtpLoginVerify />} />
       </Routes>
     </Router>
   );
