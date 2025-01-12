@@ -2,7 +2,7 @@ import "./Form.css";
 import React from "react";
 import { useState, useEffect } from "react";
 import { useNavigate, useLocation } from 'react-router-dom';
-
+const url = import.meta.env.VITE_BACKEND_LINK;
 
 function Form() {
     const [formData, setFormData] = useState({ username: '', email: '', password: '' })
@@ -19,7 +19,7 @@ function Form() {
 
         try {
 
-            const response = await fetch('/api/register', {
+            const response = await fetch(url + '/api/register', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -118,7 +118,7 @@ function OtpResponse() {
     useEffect(() => {
         const sendOtp = async () => {
             try {
-                const response = await fetch('/api/register/send-otp', {
+                const response = await fetch(url + '/api/register/send-otp', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -169,7 +169,7 @@ function FormOTP() {
 
         try {
 
-            const response = await fetch("/api/register/verify-otp", {
+            const response = await fetch(url + "/api/register/verify-otp", {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

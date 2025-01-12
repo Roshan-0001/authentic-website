@@ -6,9 +6,10 @@ import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import Homepage from './Homepage';
 import { LoginPage, OtpLogin, OtpLoginVerify, PasswordLogin } from './LoginPage';
 
+const url = import.meta.env.VITE_BACKEND_LINK;
+
 
 function App() {
-
 
   const [data, setData] = useState(null);
 
@@ -16,14 +17,13 @@ function App() {
 
    async function result() {
     try {
-
       if(!data){
-        const response = await axios.get('/api');
+        const response = await axios.get(url + '/api');
       setData(response.data);
       } 
       
     } catch (error) {
-      console.log('Error........', error); 
+      console.error('Axios error details:', error.response?.data || error.message);
     }
   }
     

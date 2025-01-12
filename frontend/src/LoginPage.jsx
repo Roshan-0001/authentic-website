@@ -3,6 +3,7 @@ import React from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import axios from "axios";
+const url = import.meta.env.VITE_BACKEND_LINK;
 
 function LoginPage() {
     return (
@@ -27,7 +28,7 @@ function PasswordLogin() {
         e.preventDefault();
 
         try {
-            const response = await fetch("/api/login/password-login", {
+            const response = await fetch(url + "/api/login/password-login", {
                 method: "POST",
                 headers: {
                     'Content-Type': "application/json",
@@ -78,7 +79,7 @@ function OtpLogin() {
         e.preventDefault();
 
         try {
-            const response = await fetch("/api/login/otp-login", {
+            const response = await fetch(url + "/api/login/otp-login", {
                 method: "POST",
                 headers: {
                     'Content-Type': "application/json",
@@ -88,7 +89,7 @@ function OtpLogin() {
             const result = await response.json();
             if(response.ok){
 
-                const otpResponse = await fetch("/api/login/otp-login/send-otp", {
+                const otpResponse = await fetch(url + "/api/login/otp-login/send-otp", {
                     method: "POST",
                     headers: {
                         'Content-Type': "application/json",
@@ -143,7 +144,7 @@ function OtpLoginVerify() {
         const data = {...otp , ...mail};
 
         try {
-            const response = await fetch("/api/login/otp-login/verify-otp", {
+            const response = await fetch(url + "/api/login/otp-login/verify-otp", {
                 method: "POST",
                 headers: {
                     'Content-Type': "application/json",
